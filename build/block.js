@@ -221,13 +221,18 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       name: 'acronyms',
       triggerPrefix: '::',
       options: function options(search) {
-        return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
+        var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
           path: '/wp/v2/posts'
         });
+        console.log(data);
+        var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
+          path: 'hello-world/v1/phrase'
+        });
+        console.log(data);
+        return data;
       },
       isDebounced: true,
       getOptionLabel: function getOptionLabel(post) {
-        console.log(post);
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, post.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, post.id));
       },
       getOptionKeywords: function getOptionKeywords(post) {

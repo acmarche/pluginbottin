@@ -57,17 +57,27 @@ function bottin_block_assets() {
 
 // Hook: Block assets.
 add_action( 'init', 'bottin_block_assets' );
-
-add_action( 'wp_ajax_my_action', 'my_action' );
-
-function my_action() {
-	global $wpdb; // this is how you get access to the database
-
-	$whatever = intval( $_POST['whatever'] );
-
-	$whatever += 10;
-
-	echo $whatever;
-
-	wp_die(); // this is required to terminate immediately and return a proper response
+/**
+ * This is our callback function that embeds our phrase in a WP_REST_Response
+ */
+function rest_bottin_route() {
+	$data = [ 0 => [ 'id' => 4, 'slug' => 'hello' ], 1 => [ 'id' => 5, 'slug' => 'bonjour' ] ];
+	return rest_ensure_response( $data );
 }
+
+/**
+ * This function is where we register our routes for our example endpoint.
+ */
+function register_rest_route_bottin() {
+	// register_rest_route() handles more arguments but we are going to stick to the basics for now.
+	register_rest_route( 'hello-world/v1',
+	                     '/phrase',
+	                     array(
+		                     // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
+		                     'methods'  => WP_REST_Server::READABLE,
+		                     // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
+		                     'callback' => 'rest_bottin_route',
+	                     ) );
+}
+
+add_action( 'rest_api_init', 'register_rest_route_bottin' );
