@@ -221,15 +221,16 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       name: 'acronyms',
       triggerPrefix: '::',
       options: function options(search) {
-        var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
-          path: '/wp/v2/posts'
-        });
-        console.log(data);
-        var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
-          path: 'hello-world/v1/phrase'
-        });
-        console.log(data);
-        return data;
+        if (search) {
+          console.log("s: " + search);
+          var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
+            path: 'hello-world/v1/phrase/' + search
+          });
+          console.log(data);
+          return data;
+        }
+
+        return [];
       },
       isDebounced: true,
       getOptionLabel: function getOptionLabel(post) {

@@ -38,11 +38,15 @@ registerBlockType('acmarche-block/bottin', {
             name: 'acronyms',
             triggerPrefix: '::',
             options(search) {
-                var data = apiFetch({path: '/wp/v2/posts'});
-                console.log(data);
-                var data = apiFetch({path: 'hello-world/v1/phrase'});
-                console.log(data);
-                return data;
+                if (search) {
+                    console.log("s: " + search);
+                    var data = apiFetch({
+                        path: 'hello-world/v1/phrase/' + search
+                    });
+                    console.log(data);
+                    return data;
+                }
+                return [];
             },
             isDebounced: true,
             getOptionLabel(post) {

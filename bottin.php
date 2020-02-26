@@ -59,9 +59,18 @@ function bottin_block_assets() {
 add_action( 'init', 'bottin_block_assets' );
 /**
  * This is our callback function that embeds our phrase in a WP_REST_Response
+ *
+ * @param WP_REST_Request $request
+ *
+ * @return mixed|WP_REST_Response
  */
-function rest_bottin_route() {
-	$data = [ 0 => [ 'id' => 4, 'slug' => 'hello' ], 1 => [ 'id' => 5, 'slug' => 'bonjour' ] ];
+function rest_bottin_route($request) {
+	//var_dump($request->get_params());
+	$search=null;
+	if(isset($request['search'])){
+		$search = $request['search'];
+	}
+	$data = [ 0 => [ 'id' => 4, 'slug' => 'hello'.$search ], 1 => [ 'id' => 5, 'slug' => 'bonjour' ] ];
 	return rest_ensure_response( $data );
 }
 
@@ -71,10 +80,17 @@ function rest_bottin_route() {
 function register_rest_route_bottin() {
 	// register_rest_route() handles more arguments but we are going to stick to the basics for now.
 	register_rest_route( 'hello-world/v1',
-	                     '/phrase',
+	                     '/phrase/(?P<search>.*+)',
 	                     array(
 		                     // By using this constant we ensure that when the WP_REST_Server changes our readable endpoints will work as intended.
 		                     'methods'  => WP_REST_Server::READABLE,
+		                     'args' => array(
+			                     'search' => array(
+				                     'validate_callback' => function( $param, $request, $key ) {
+					                     return is_string( $param );
+				                     }
+			                     ),
+		                     ),
 		                     // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
 		                     'callback' => 'rest_bottin_route',
 	                     ) );
