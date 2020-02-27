@@ -4,6 +4,7 @@ import {PanelBody, ToggleControl, Autocomplete} from '@wordpress/components';
 import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
 import {Component, renderToString} from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import ServerSideRender from '@wordpress/server-side-render';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
@@ -32,7 +33,7 @@ registerBlockType('acmarche-block/bottin', {
         },
     },
 
-    edit: function (props) {
+    edit: function ({className, setAttributes, attributes}) {
 
         const acronymCompleter = {
             name: 'acronyms',
@@ -76,24 +77,30 @@ registerBlockType('acmarche-block/bottin', {
 
         const setPost = (newContent) => {
             console.log(newContent);
-            props.setAttributes({idBottin: newContent});
+            setAttributes({idBottin: newContent});
         };
 
-        return <RichText
+        var blockContent = '';
+        console.log(attributes);
+        if (parseInt(attributes.idBottin) > 0) {
+            blockContent = <ServerSideRender
+                block="acmarche-block/bottin"
+                attributes={attributes}
+            />;
+        }
+
+        return <> <RichText
             tagName="p"
             onChange={(nextContent) => {
 
             }}
             placeholder="add text"
             aria-autocomplete="list"
-
-        />;
+        />
+            <ServerSideRender
+                block="acmarche-block/bottin"
+                attributes={attributes}
+            />
+        </>
     },
-
-    // No information saved to the block
-    // Data is saved to post meta via attributes
-    //render call back prend le dessus
-    save() {
-        return null;
-    }
 });
