@@ -50,9 +50,8 @@ function bottin_block_assets() {
 				                     'type'    => 'boolean',
 				                     'default' => true,
 			                     ],
-			                     'idBottin' => [
-				                     'default' => '0',
-				                     'type'    => 'string',
+			                     'id'       => [
+				                     'type' => 'string',
 			                     ],
 		                     ],
 		                     'render_callback' => 'bottin_render_callback'
@@ -62,7 +61,7 @@ function bottin_block_assets() {
 
 function bottin_render_callback( $attributes ) {
 
-	$id = $attributes['idBottin'];
+	$id = $attributes['id'];
 	if ( ! $id ) {
 		return 'Indiquer dans les paramètres du bloc le id';
 	}

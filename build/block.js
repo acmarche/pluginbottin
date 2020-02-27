@@ -194,7 +194,7 @@ __webpack_require__.r(__webpack_exports__);
  //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acmarche-block/bottin', {
-  title: 'Bottin 22',
+  title: 'Bottin',
   description: 'Insérer une fiche ou une rubrique du bottin',
   placeholder: 'Indiquer id',
   icon: 'store',
@@ -205,18 +205,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
   },
   example: {
     attributes: {
-      cover: 'https://www.marche.be/logo/marche.jpg',
-      author: 'William Shakespeare',
-      pages: 500
-    }
-  },
-  attributes: {
-    idBottin: {
-      default: null,
-      type: 'string',
-      id: 'loulou' //  source: 'meta',
-      //   meta: 'myguten_meta_block_field',
-
+      id: '12345'
     }
   },
   edit: function edit(_ref) {
@@ -228,11 +217,9 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       triggerPrefix: '::',
       options: function options(search) {
         if (search) {
-          console.log("s: " + search);
           var data = _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_6___default()({
             path: 'hello-world/v1/phrase/' + search
           });
-          console.log(data);
           return data;
         }
 
@@ -260,23 +247,21 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     wp.hooks.addFilter('editor.Autocomplete.completers', 'my-plugin/autocompleters/acronym', appendAcronymCompleter);
 
     var setPost = function setPost(newContent) {
-      console.log(newContent);
       setAttributes({
-        idBottin: newContent
+        id: newContent.toString()
       });
     };
 
     var blockContent = '';
-    console.log(attributes);
 
-    if (parseInt(attributes.idBottin) > 0) {
+    if (parseInt(attributes.id) > 0) {
       blockContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_7___default.a, {
         block: "acmarche-block/bottin",
         attributes: attributes
       });
     }
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["RichText"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["RichText"], {
       tagName: "p",
       onChange: function onChange(nextContent) {},
       placeholder: "add text",

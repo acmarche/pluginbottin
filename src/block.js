@@ -8,7 +8,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
-    title: 'Bottin 22',
+    title: 'Bottin',
     description: 'Insérer une fiche ou une rubrique du bottin',
     placeholder: 'Indiquer id',
     icon: 'store',
@@ -18,21 +18,9 @@ registerBlockType('acmarche-block/bottin', {
         html: false,
     }, example: {
         attributes: {
-            cover: 'https://www.marche.be/logo/marche.jpg',
-            author: 'William Shakespeare',
-            pages: 500
+            id: '12345',
         },
     },
-    attributes: {
-        idBottin: {
-            default: null,
-            type: 'string',
-            id: 'loulou'
-            //  source: 'meta',
-            //   meta: 'myguten_meta_block_field',
-        },
-    },
-
     edit: function ({className, setAttributes, attributes}) {
 
         const acronymCompleter = {
@@ -40,11 +28,9 @@ registerBlockType('acmarche-block/bottin', {
             triggerPrefix: '::',
             options(search) {
                 if (search) {
-                    console.log("s: " + search);
                     var data = apiFetch({
                         path: 'hello-world/v1/phrase/' + search
                     });
-                    console.log(data);
                     return data;
                 }
                 return [];
@@ -76,31 +62,30 @@ registerBlockType('acmarche-block/bottin', {
         );
 
         const setPost = (newContent) => {
-            console.log(newContent);
-            setAttributes({idBottin: newContent});
+            setAttributes({id: newContent.toString()});
         };
 
         var blockContent = '';
-        console.log(attributes);
-        if (parseInt(attributes.idBottin) > 0) {
+        if (parseInt(attributes.id) > 0) {
             blockContent = <ServerSideRender
                 block="acmarche-block/bottin"
                 attributes={attributes}
             />;
         }
 
-        return <> <RichText
-            tagName="p"
-            onChange={(nextContent) => {
+        return (<>
+            <RichText
+                tagName="p"
+                onChange={(nextContent) => {
 
-            }}
-            placeholder="add text"
-            aria-autocomplete="list"
-        />
+                }}
+                placeholder="add text"
+                aria-autocomplete="list"
+            />
             <ServerSideRender
                 block="acmarche-block/bottin"
                 attributes={attributes}
             />
-        </>
+        </>)
     },
 });
