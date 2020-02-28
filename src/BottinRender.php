@@ -18,7 +18,7 @@ class BottinRender {
 		$twig     = self::instance();
 		$template = 'fiche.html.twig';
 
-		
+		$fetch = new BottinFetchApi( $_SERVER['API_USER'], $_SERVER['API_USER'] );
 		$fiche = $fetch->getFicheBottin( $idFiche );
 		if(!$fiche) {
 			$template = 'fiche_404.html.twig';

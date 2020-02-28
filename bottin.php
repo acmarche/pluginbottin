@@ -17,7 +17,6 @@ require_once( __DIR__ . '/../../../vendor/autoload.php' );
  *
  * @package         Bottin
  */
-
 function bottin_block_assets() {
 	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/block.asset.php' );
 

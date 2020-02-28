@@ -29,7 +29,7 @@ class BottinElastic {
 	 */
 	public function __construct( string $indexName ) {
 		$hosts = [
-
+			$_SERVER['ELASTIC_USER'].':'.$_SERVER['ELASTIC_PASSWORD'].'@'.$_SERVER['ELASTIC_HOST']
 		];
 
 		$this->client = ClientBuilder::create()
