@@ -1,5 +1,6 @@
 <?php
 
+use AcMarche\Bottin\BottinElastic;
 use AcMarche\Bottin\BottinRender;
 
 require_once( __DIR__ . '/../../../vendor/autoload.php' );
@@ -60,14 +61,13 @@ function bottin_block_assets() {
 }
 
 function bottin_render_callback( $attributes ) {
-
 	$id = $attributes['id'];
 	if ( ! $id ) {
 		return 'Indiquer dans les paramètres du bloc le id';
 	}
 
 	$render        = new BottinRender();
-	$block_content = $render->renderFiche( 520 );
+	$block_content = $render->renderFiche( $id );
 
 	return $block_content;
 }
@@ -82,14 +82,29 @@ add_action( 'init', 'bottin_block_assets' );
  * @return mixed|WP_REST_Response
  */
 function rest_bottin_route( $request ) {
-	//$fetcher = new \AcElasticsearch\AcElasticFetchContent();
-	//$fetcher->getFicheBottin();
 	//var_dump($request->get_params());
 	$search = null;
 	if ( isset( $request['search'] ) ) {
 		$search = $request['search'];
 	}
-	$data = [ 0 => [ 'id' => 4, 'slug' => 'hello' . $search ], 1 => [ 'id' => 5, 'slug' => 'bonjour' ] ];
+
+	$elastic = new BottinElastic( 'marchebe' );
+
+	$result = $elastic->search( 'memo' );
+
+	$hits  = $result['hits'];
+	$total = $hits['total'];
+	$data  = [];
+	$i     = 0;
+	foreach ( $hits['hits'] as $hit ) {
+		$score              = $hit['_score'];
+		$post               = $hit['_source'];
+		$type               = $post['type'];
+		$name               = $post['name'];
+		$id                 = $post['id'];
+		$data[ $i ]['slug'] = $post['name'];
+		$data[ $i ]['id']   = $post['id'];
+	}
 
 	return rest_ensure_response( $data );
 }

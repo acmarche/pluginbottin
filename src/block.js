@@ -1,8 +1,5 @@
 import {registerBlockType} from '@wordpress/blocks';
-import {__} from '@wordpress/i18n';
-import {PanelBody, ToggleControl, Autocomplete} from '@wordpress/components';
-import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
-import {Component, renderToString} from '@wordpress/element';
+import {RichText} from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
 import ServerSideRender from '@wordpress/server-side-render';
 
@@ -28,10 +25,9 @@ registerBlockType('acmarche-block/bottin', {
             triggerPrefix: '::',
             options(search) {
                 if (search) {
-                    var data = apiFetch({
+                    return apiFetch({
                         path: 'hello-world/v1/phrase/' + search
                     });
-                    return data;
                 }
                 return [];
             },
