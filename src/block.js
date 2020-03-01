@@ -75,13 +75,7 @@ registerBlockType('acmarche-block/bottin', {
             />;
         }
 
-
-        const updateFieldValue = (val) => {
-            setAttributes({ShowFull: val});
-            this.setState(state);
-        };
-
-        const MyToggleControl = withState({
+        const FullFicheToggleControl = withState({
             hasFixedBackground: ShowFull,
         })(({hasFixedBackground, setState}) => (
             <ToggleControl
@@ -99,7 +93,7 @@ registerBlockType('acmarche-block/bottin', {
         return (<>
                 <InspectorControls>
                     <PanelBody title={'Paramètres de la fiche'}>
-                        <MyToggleControl/>
+                        <FullFicheToggleControl/>
                     </PanelBody>
                 </InspectorControls>
                 <RichText
