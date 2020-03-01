@@ -75,22 +75,24 @@ registerBlockType('acmarche-block/bottin', {
             />;
         }
 
-        console.log(ShowFull);
+
+        const updateFieldValue = (val) => {
+            setAttributes({ShowFull: val});
+            this.setState(state);
+        };
 
         const MyToggleControl = withState({
-            hasFixedBackground: false,
-        })(({hasFixedBackground, setState, setAttributes}) => (
+            hasFixedBackground: ShowFull,
+        })(({hasFixedBackground, setState}) => (
             <ToggleControl
                 label="Afficher la fiche complète"
                 help={hasFixedBackground ? 'Has fixed background.' : 'No fixed background.'}
                 checked={hasFixedBackground}
-                onChange={
-                    setAttributes({
-                        ShowFull: !ShowFull,
-                    })}
-                onChange={
-                    () => setState((state) => ({hasFixedBackground: !state.hasFixedBackground}))
-                }
+                onChange={value => {
+                    console.log(value);
+                    setAttributes({ShowFull: value});
+                    setState({hasFixedBackground: value})
+                }}
             />
         ));
 
