@@ -5,6 +5,7 @@ import {Disabled} from '@wordpress/components';
 import {PanelBody, ToggleControl} from '@wordpress/components';
 import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
 import {withState} from '@wordpress/compose';
+import { addFilter } from '@wordpress/hooks';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
@@ -55,7 +56,7 @@ registerBlockType('acmarche-block/bottin', {
                 completers;
         }
 
-        wp.hooks.addFilter(
+        addFilter(
             'editor.Autocomplete.completers',
             'acbottin/autocompleters/bottin',
             appendBottinCompleter
