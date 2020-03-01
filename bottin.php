@@ -31,7 +31,7 @@ function bottin_block_assets() {
 
 	// Register block editor script for backend.
 	wp_register_script(
-		'bottin-autocompler',
+		'bottin-autocompleter',
 		// Handle.
 		plugins_url( 'bottin/build/block.js', dirname( __FILE__ ) ),
 		// Block.build.js: We register the block here. Built with Webpack.
@@ -41,12 +41,12 @@ function bottin_block_assets() {
 	);
 
 	wp_enqueue_style( 'bottin-block-style-css' );
-	wp_enqueue_script( 'bottin-autocompler' );
+	wp_enqueue_script( 'bottin-autocompleter' );
 
 	register_block_type( 'acmarche-block/bottin',
 	                     [
 		                     'attributes'      => [
-			                     'ShowFull' => [
+			                     'showFull' => [
 				                     'type'    => 'boolean',
 				                     'default' => false,
 			                     ],
@@ -61,7 +61,7 @@ function bottin_block_assets() {
 
 function bottin_render_callback( $attributes ) {
 	$id       = (int) $attributes['id'];
-	$showFull = (bool) $attributes['ShowFull'];
+	$showFull = (bool) $attributes['showFull'];
 	if ( ! $id ) {
 		return '';//'Indiquer dans les paramètres du bloc le id';
 	}
