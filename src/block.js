@@ -1,8 +1,10 @@
 import {registerBlockType} from '@wordpress/blocks';
-import {RichText} from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
 import ServerSideRender from '@wordpress/server-side-render';
-import {Button, Disabled, TextControl} from '@wordpress/components';
+import {Disabled} from '@wordpress/components';
+import {PanelBody, ToggleControl} from '@wordpress/components';
+import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
+import {withState} from '@wordpress/compose';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
@@ -14,15 +16,16 @@ registerBlockType('acmarche-block/bottin', {
     supports: {
         align: true,
         html: false,
-    }, example: {
+    },
+    example: {
         attributes: {
             id: '12345',
         },
     },
     edit: function ({className, setAttributes, attributes}) {
 
-        const acronymCompleter = {
-            name: 'acronyms',
+        const bottinCompleter = {
+            name: 'acbottin',
             triggerPrefix: '::',
             options(search) {
                 if (search) {
@@ -46,17 +49,19 @@ registerBlockType('acmarche-block/bottin', {
         };
 
         // Our filter function
-        function appendAcronymCompleter(completers, blockName) {
+        function appendBottinCompleter(completers, blockName) {
             return blockName === 'acmarche-block/bottin' ?
-                [...completers, acronymCompleter] :
+                [...completers, bottinCompleter] :
                 completers;
         }
 
         wp.hooks.addFilter(
             'editor.Autocomplete.completers',
-            'my-plugin/autocompleters/acronym',
-            appendAcronymCompleter
+            'acbottin/autocompleters/bottin',
+            appendBottinCompleter
         );
+
+        const {ShowFull} = attributes;
 
         const setPost = (newContent) => {
             setAttributes({id: newContent.toString()});
@@ -70,12 +75,33 @@ registerBlockType('acmarche-block/bottin', {
             />;
         }
 
+        console.log(ShowFull);
+
+        const MyToggleControl = withState({
+            hasFixedBackground: false,
+        })(({hasFixedBackground, setState, setAttributes}) => (
+            <ToggleControl
+                label="Afficher la fiche complète"
+                help={hasFixedBackground ? 'Has fixed background.' : 'No fixed background.'}
+                checked={hasFixedBackground}
+                onChange={
+                    setAttributes({
+                        ShowFull: !ShowFull,
+                    })}
+                onChange={
+                    () => setState((state) => ({hasFixedBackground: !state.hasFixedBackground}))
+                }
+            />
+        ));
+
         return (<>
+                <InspectorControls>
+                    <PanelBody title={'Paramètres de la fiche'}>
+                        <MyToggleControl/>
+                    </PanelBody>
+                </InspectorControls>
                 <RichText
                     tagName="p"
-                    onChange={(nextContent) => {
-
-                    }}
                     placeholder="Modifier"
                     aria-autocomplete="list"
                 />

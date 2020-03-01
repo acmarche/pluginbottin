@@ -48,7 +48,7 @@ function bottin_block_assets() {
 		                     'attributes'      => [
 			                     'ShowFull' => [
 				                     'type'    => 'boolean',
-				                     'default' => true,
+				                     'default' => false,
 			                     ],
 			                     'id'       => [
 				                     'type' => 'string',
@@ -60,13 +60,14 @@ function bottin_block_assets() {
 }
 
 function bottin_render_callback( $attributes ) {
-	$id = $attributes['id'];
+	$id       = (int) $attributes['id'];
+	$showFull = (bool) $attributes['ShowFull'];
 	if ( ! $id ) {
 		return '';//'Indiquer dans les paramètres du bloc le id';
 	}
 
 	$render        = new BottinRender();
-	$block_content = $render->renderFiche( $id );
+	$block_content = $render->renderFiche( $id, $showFull );
 
 	return $block_content;
 }
@@ -96,7 +97,7 @@ function rest_bottin_route( $request ) {
 		$post               = $hit['_source'];
 		$data[ $i ]['slug'] = $post['name'];
 		//$data[ $i ]['localite'] = $post['localite'];
-		$data[ $i ]['id']   = $post['id'];
+		$data[ $i ]['id'] = $post['id'];
 		$i ++;
 	}
 

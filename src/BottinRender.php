@@ -14,17 +14,17 @@ class BottinRender {
 		return new Environment( $loader );
 	}
 
-	public function renderFiche( int $idFiche ) : string {
+	public function renderFiche( int $idFiche, bool $showFull ): string {
 		$twig     = self::instance();
 		$template = 'fiche.html.twig';
 
 		$fetch = new BottinFetchApi( $_SERVER['API_USER'], $_SERVER['API_USER'] );
 		$fiche = $fetch->getFicheBottin( $idFiche );
-		if(!$fiche) {
+		if ( ! $fiche ) {
 			$template = 'fiche_404.html.twig';
 		}
 
-		return $twig->render( $template, [ 'fiche' => $fiche ] );
+		return $twig->render( $template, [ 'fiche' => $fiche, 'showFull' => $showFull ] );
 	}
 
 }
