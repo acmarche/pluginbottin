@@ -231,9 +231,11 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       getOptionLabel: function getOptionLabel(post) {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, post.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, post.id));
       },
+      // options should be matched by their name
       getOptionKeywords: function getOptionKeywords(post) {
         return [post.slug, post.id];
       },
+      // completions should be removed, but then spawn setPost
       getOptionCompletion: function getOptionCompletion(post) {
         return {
           action: 'replace',
@@ -246,7 +248,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       return blockName === 'acmarche-block/bottin' ? [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(completers), [bottinCompleter]) : completers;
     }
 
-    Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__["addFilter"])('editor.Autocomplete.completers', 'acbottin/autocompleters/bottin', appendBottinCompleter);
+    Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__["addFilter"])('editor.Autocomplete.completers', 'acbottin/autocompleters-bottin', appendBottinCompleter);
     var ShowFull = attributes.ShowFull;
 
     var setPost = function setPost(newContent) {

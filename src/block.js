@@ -5,7 +5,7 @@ import {Disabled} from '@wordpress/components';
 import {PanelBody, ToggleControl} from '@wordpress/components';
 import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
 import {withState} from '@wordpress/compose';
-import { addFilter } from '@wordpress/hooks';
+import {addFilter} from '@wordpress/hooks';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
@@ -40,7 +40,9 @@ registerBlockType('acmarche-block/bottin', {
             getOptionLabel(post) {
                 return <span>{post.slug} <small>{post.id}</small></span>;
             },
+            // options should be matched by their name
             getOptionKeywords: post => [post.slug, post.id],
+            // completions should be removed, but then spawn setPost
             getOptionCompletion(post) {
                 return {
                     action: 'replace',
@@ -58,7 +60,7 @@ registerBlockType('acmarche-block/bottin', {
 
         addFilter(
             'editor.Autocomplete.completers',
-            'acbottin/autocompleters/bottin',
+            'acbottin/autocompleters-bottin',
             appendBottinCompleter
         );
 
