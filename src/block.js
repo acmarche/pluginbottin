@@ -2,6 +2,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {RichText} from '@wordpress/block-editor';
 import apiFetch from '@wordpress/api-fetch';
 import ServerSideRender from '@wordpress/server-side-render';
+import {Button, Disabled, TextControl} from '@wordpress/components';
 
 //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 registerBlockType('acmarche-block/bottin', {
@@ -61,7 +62,7 @@ registerBlockType('acmarche-block/bottin', {
             setAttributes({id: newContent.toString()});
         };
 
-        var blockContent = '';
+        let blockContent = null;
         if (parseInt(attributes.id) > 0) {
             blockContent = <ServerSideRender
                 block="acmarche-block/bottin"
@@ -70,18 +71,19 @@ registerBlockType('acmarche-block/bottin', {
         }
 
         return (<>
-            <RichText
-                tagName="p"
-                onChange={(nextContent) => {
+                <RichText
+                    tagName="p"
+                    onChange={(nextContent) => {
 
-                }}
-                placeholder="add text"
-                aria-autocomplete="list"
-            />
-            <ServerSideRender
-                block="acmarche-block/bottin"
-                attributes={attributes}
-            />
-        </>)
+                    }}
+                    placeholder="Modifier"
+                    aria-autocomplete="list"
+                />
+                <Disabled>
+                    {blockContent}
+                </Disabled>
+
+            </>
+        )
     },
 });

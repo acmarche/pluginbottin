@@ -62,7 +62,7 @@ function bottin_block_assets() {
 function bottin_render_callback( $attributes ) {
 	$id = $attributes['id'];
 	if ( ! $id ) {
-		return 'Indiquer dans les paramètres du bloc le id';
+		return '';//'Indiquer dans les paramètres du bloc le id';
 	}
 
 	$render        = new BottinRender();
