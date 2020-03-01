@@ -228,18 +228,18 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
         return [];
       },
       isDebounced: true,
-      getOptionLabel: function getOptionLabel(post) {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, post.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, post.id));
+      getOptionLabel: function getOptionLabel(fiche) {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, fiche.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, fiche.id));
       },
-      // options should be matched by their name
-      getOptionKeywords: function getOptionKeywords(post) {
-        return [post.slug, post.id];
+      // Declares that options should be matched by their name
+      getOptionKeywords: function getOptionKeywords(fiche) {
+        return [fiche.slug, fiche.id];
       },
       // completions should be removed, but then spawn setPost
-      getOptionCompletion: function getOptionCompletion(post) {
+      getOptionCompletion: function getOptionCompletion(fiche) {
         return {
           action: 'replace',
-          value: setPost(post.id)
+          value: updateAttributesId(fiche.id)
         };
       }
     }; // Our filter function
@@ -251,7 +251,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__["addFilter"])('editor.Autocomplete.completers', 'acbottin/autocompleters-bottin', appendBottinCompleter);
     var ShowFull = attributes.ShowFull;
 
-    var setPost = function setPost(newContent) {
+    var updateAttributesId = function updateAttributesId(newContent) {
       setAttributes({
         id: newContent.toString()
       });
@@ -278,7 +278,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
         onChange: function onChange(value) {
           console.log(value);
           setAttributes({
-            ShowFull: value
+            showFull: value
           });
           setState({
             hasFixedBackground: value

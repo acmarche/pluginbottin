@@ -37,16 +37,16 @@ registerBlockType('acmarche-block/bottin', {
                 return [];
             },
             isDebounced: true,
-            getOptionLabel(post) {
-                return <span>{post.slug} <small>{post.id}</small></span>;
+            getOptionLabel(fiche) {
+                return <span>{fiche.slug} <small>{fiche.id}</small></span>;
             },
-            // options should be matched by their name
-            getOptionKeywords: post => [post.slug, post.id],
+            // Declares that options should be matched by their name
+            getOptionKeywords: fiche => [fiche.slug, fiche.id],
             // completions should be removed, but then spawn setPost
-            getOptionCompletion(post) {
+            getOptionCompletion(fiche) {
                 return {
                     action: 'replace',
-                    value: setPost(post.id),
+                    value: updateAttributesId(fiche.id),
                 };
             },
         };
@@ -66,7 +66,7 @@ registerBlockType('acmarche-block/bottin', {
 
         const {ShowFull} = attributes;
 
-        const setPost = (newContent) => {
+        const updateAttributesId = (newContent) => {
             setAttributes({id: newContent.toString()});
         };
 
@@ -87,7 +87,7 @@ registerBlockType('acmarche-block/bottin', {
                 checked={hasFixedBackground}
                 onChange={value => {
                     console.log(value);
-                    setAttributes({ShowFull: value});
+                    setAttributes({showFull: value});
                     setState({hasFixedBackground: value})
                 }}
             />
