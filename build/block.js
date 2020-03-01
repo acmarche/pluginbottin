@@ -209,8 +209,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     }
   },
   edit: function edit(_ref) {
-    var _this = this;
-
     var className = _ref.className,
         setAttributes = _ref.setAttributes,
         attributes = _ref.attributes;
@@ -263,15 +261,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       });
     }
 
-    var updateFieldValue = function updateFieldValue(val) {
-      setAttributes({
-        ShowFull: val
-      });
-
-      _this.setState(state);
-    };
-
-    var MyToggleControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_7__["withState"])({
+    var FullFicheToggleControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_7__["withState"])({
       hasFixedBackground: ShowFull
     })(function (_ref2) {
       var hasFixedBackground = _ref2.hasFixedBackground,
@@ -293,9 +283,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
       title: 'Paramètres de la fiche'
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MyToggleControl, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["RichText"], {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(FullFicheToggleControl, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["RichText"], {
       tagName: "p",
       placeholder: "Modifier",
+      onChange: function onChange(value) {},
       "aria-autocomplete": "list"
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Disabled"], null, blockContent));
   }

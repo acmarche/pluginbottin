@@ -99,6 +99,8 @@ registerBlockType('acmarche-block/bottin', {
                 <RichText
                     tagName="p"
                     placeholder="Modifier"
+                    onChange={(value) => {
+                    }}
                     aria-autocomplete="list"
                 />
                 <Disabled>
