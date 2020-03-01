@@ -214,7 +214,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       options: function options(search) {
         if (search) {
           return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
-            path: 'hello-world/v1/phrase/' + search
+            path: 'acmarche/bottin/' + search
           });
         }
 
@@ -247,7 +247,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       });
     };
 
-    var blockContent = null;
+    var blockContent = 'Indiquez le nom de la fiche';
 
     if (parseInt(attributes.id) > 0) {
       blockContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5___default.a, {

@@ -1,10 +1,4 @@
 <?php
-
-use AcMarche\Bottin\BottinElastic;
-use AcMarche\Bottin\BottinRender;
-
-require_once( __DIR__ . '/../../../vendor/autoload.php' );
-
 /**
  * Plugin Name:     Bottin
  * Plugin URI:      PLUGIN SITE HERE
@@ -17,6 +11,12 @@ require_once( __DIR__ . '/../../../vendor/autoload.php' );
  *
  * @package         Bottin
  */
+
+use AcMarche\Bottin\BottinElastic;
+use AcMarche\Bottin\BottinRender;
+
+require_once( __DIR__ . '/../../../vendor/autoload.php' );
+
 function bottin_block_assets() {
 	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/block.asset.php' );
 
@@ -81,28 +81,23 @@ add_action( 'init', 'bottin_block_assets' );
  * @return mixed|WP_REST_Response
  */
 function rest_bottin_route( $request ) {
-	//var_dump($request->get_params());
 	$search = null;
 	if ( isset( $request['search'] ) ) {
 		$search = $request['search'];
 	}
 
 	$elastic = new BottinElastic( 'marchebe' );
-
-	$result = $elastic->search( 'memo' );
-
-	$hits  = $result['hits'];
-	$total = $hits['total'];
-	$data  = [];
-	$i     = 0;
+	$result  = $elastic->search( $search );
+	$hits    = $result['hits'];
+	$total   = $hits['total'];
+	$data    = [];
+	$i       = 0;
 	foreach ( $hits['hits'] as $hit ) {
-		$score              = $hit['_score'];
 		$post               = $hit['_source'];
-		$type               = $post['type'];
-		$name               = $post['name'];
-		$id                 = $post['id'];
 		$data[ $i ]['slug'] = $post['name'];
+		//$data[ $i ]['localite'] = $post['localite'];
 		$data[ $i ]['id']   = $post['id'];
+		$i ++;
 	}
 
 	return rest_ensure_response( $data );
@@ -113,8 +108,8 @@ function rest_bottin_route( $request ) {
  */
 function register_rest_route_bottin() {
 	// register_rest_route() handles more arguments but we are going to stick to the basics for now.
-	register_rest_route( 'hello-world/v1',
-	                     '/phrase/(?P<search>.*+)',
+	register_rest_route( 'acmarche/',
+	                     '/bottin/(?P<search>.*+)',
 	                     array(
 		                     'methods'  => WP_REST_Server::READABLE,
 		                     'args'     => array(

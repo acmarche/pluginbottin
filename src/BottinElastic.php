@@ -48,7 +48,7 @@ class BottinElastic {
 	 *
 	 * @return array
 	 */
-	public function search( string $motclef, int $max = 50 ) {
+	public function search( string $motclef, int $max = 10 ) {
 
 		if ( ! $motclef ) {
 			return [];

@@ -27,7 +27,7 @@ registerBlockType('acmarche-block/bottin', {
             options(search) {
                 if (search) {
                     return apiFetch({
-                        path: 'hello-world/v1/phrase/' + search
+                        path: 'acmarche/bottin/' + search
                     });
                 }
                 return [];
@@ -62,7 +62,7 @@ registerBlockType('acmarche-block/bottin', {
             setAttributes({id: newContent.toString()});
         };
 
-        let blockContent = null;
+        let blockContent = 'Indiquez le nom de la fiche';
         if (parseInt(attributes.id) > 0) {
             blockContent = <ServerSideRender
                 block="acmarche-block/bottin"
@@ -82,7 +82,6 @@ registerBlockType('acmarche-block/bottin', {
                 <Disabled>
                     {blockContent}
                 </Disabled>
-
             </>
         )
     },
