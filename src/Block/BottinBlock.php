@@ -46,7 +46,7 @@ class BottinBlock {
 					                     'type' => 'string',
 				                     ],
 			                     ],
-			                     'render_callback' => [ 'AcMarche\Bottin\BottinBlock', 'renderBlock' ]
+			                     'render_callback' => [ $this, 'renderBlock' ]
 		                     ]
 		);
 	}
