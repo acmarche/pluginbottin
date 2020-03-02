@@ -16,5 +16,5 @@ registerBlockType('acmarche-block/bottin', {
             id: '12345',
         },
     },
-    edit: edit
+    edit
 });
