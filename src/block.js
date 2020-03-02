@@ -67,10 +67,13 @@ registerBlockType('acmarche-block/bottin', {
         const {ShowFull} = attributes;
 
         const updateAttributesId = (newContent) => {
-            setAttributes({id: newContent.toString()});
+            const block = wp.data.select('core/block-editor').getSelectedBlock();
+            console.log(block);
+            block.attributes.id = newContent.toString();
         };
 
         let blockContent = 'Indiquez le nom de la fiche';
+        console.log('ici');
         if (parseInt(attributes.id) > 0) {
             blockContent = <ServerSideRender
                 block="acmarche-block/bottin"
@@ -102,6 +105,7 @@ registerBlockType('acmarche-block/bottin', {
                 <RichText
                     tagName="p"
                     placeholder="Modifier"
+                    withoutInteractiveFormatting
                     onChange={(value) => {
                     }}
                     aria-autocomplete="list"

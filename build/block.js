@@ -252,12 +252,13 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     var ShowFull = attributes.ShowFull;
 
     var updateAttributesId = function updateAttributesId(newContent) {
-      setAttributes({
-        id: newContent.toString()
-      });
+      var block = wp.data.select('core/block-editor').getSelectedBlock();
+      console.log(block);
+      block.attributes.id = newContent.toString();
     };
 
     var blockContent = 'Indiquez le nom de la fiche';
+    console.log('ici');
 
     if (parseInt(attributes.id) > 0) {
       blockContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -291,6 +292,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(FullFicheToggleControl, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["RichText"], {
       tagName: "p",
       placeholder: "Modifier",
+      withoutInteractiveFormatting: true,
       onChange: function onChange(value) {},
       "aria-autocomplete": "list"
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Disabled"], null, blockContent));
