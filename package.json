@@ -1,7 +1,7 @@
 {
   "name": "bottin",
   "version": "0.1.0",
-  "main": "src/block.js",
+  "main": "src/Block/block.js",
   "author": "Jfsenechal",
   "scripts": {
     "start": "wp-scripts start",
