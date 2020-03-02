@@ -167,35 +167,12 @@ module.exports = _toConsumableArray;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
-/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 
 
-
-
-
-
-
-
-
-
-Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acmarche-block/bottin', {
+Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('acmarche-block/bottin', {
   title: 'Bottin',
   description: 'Insérer une fiche ou une rubrique du bottin',
   placeholder: 'Indiquer id',
@@ -210,96 +187,135 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
       id: '12345'
     }
   },
-  edit: function edit(_ref) {
-    var className = _ref.className,
-        setAttributes = _ref.setAttributes,
-        attributes = _ref.attributes;
-    var bottinCompleter = {
-      name: 'acbottin',
-      triggerPrefix: '::',
-      options: function options(search) {
-        if (search) {
-          return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_3___default()({
-            path: 'acmarche/bottin/' + search
-          });
-        }
-
-        return [];
-      },
-      isDebounced: true,
-      getOptionLabel: function getOptionLabel(fiche) {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, fiche.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, fiche.id));
-      },
-      // Declares that options should be matched by their name
-      getOptionKeywords: function getOptionKeywords(fiche) {
-        return [fiche.slug, fiche.id];
-      },
-      // completions should be removed, but then spawn setPost
-      getOptionCompletion: function getOptionCompletion(fiche) {
-        return {
-          action: 'replace',
-          value: updateAttributesId(fiche.id)
-        };
-      }
-    }; // Our filter function
-
-    function appendBottinCompleter(completers, blockName) {
-      return blockName === 'acmarche-block/bottin' ? [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(completers), [bottinCompleter]) : completers;
-    }
-
-    Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_8__["addFilter"])('editor.Autocomplete.completers', 'acbottin/autocompleters-bottin', appendBottinCompleter);
-    var ShowFull = attributes.ShowFull;
-
-    var updateAttributesId = function updateAttributesId(newContent) {
-      var blockSelected = wp.data.select('core/block-editor').getSelectedBlock();
-      console.log(blockSelected); // blockSelected.attributes.id = newContent.toString(); //not refresh block
-
-      setAttributes({
-        id: newContent.toString()
-      }); //refresh block, bug with several times the same block
-    };
-
-    var blockContent = 'Indiquez le nom de la fiche';
-    console.log('ici');
-
-    if (parseInt(attributes.id) > 0) {
-      blockContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default.a, {
-        block: "acmarche-block/bottin",
-        attributes: attributes
-      });
-    }
-
-    var FullFicheToggleControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_7__["withState"])({
-      isFullDisplay: ShowFull
-    })(function (_ref2) {
-      var isFullDisplay = _ref2.isFullDisplay,
-          setState = _ref2.setState;
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["ToggleControl"], {
-        label: "Afficher la fiche compl\xE8te",
-        help: isFullDisplay ? 'Has fixed background.' : 'No fixed background.',
-        checked: isFullDisplay,
-        onChange: function onChange(value) {
-          console.log(value);
-          setAttributes({
-            showFull: value
-          });
-          setState({
-            isFullDisplay: value
-          });
-        }
-      });
-    });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["PanelBody"], {
-      title: 'Paramètres de la fiche'
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(FullFicheToggleControl, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_6__["RichText"], {
-      tagName: "p",
-      placeholder: "Modifier",
-      withoutInteractiveFormatting: true,
-      onChange: function onChange(value) {},
-      "aria-autocomplete": "list"
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Disabled"], null, blockContent));
-  }
+  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
+
+/***/ }),
+
+/***/ "./src/edit.js":
+/*!*********************!*\
+  !*** ./src/edit.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ArchivesEdit; });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+
+function ArchivesEdit(_ref) {
+  var className = _ref.className,
+      setAttributes = _ref.setAttributes,
+      attributes = _ref.attributes;
+  var bottinCompleter = {
+    name: 'acbottin',
+    triggerPrefix: '::',
+    options: function options(search) {
+      if (search) {
+        return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+          path: 'acmarche/bottin/' + search
+        });
+      }
+
+      return [];
+    },
+    isDebounced: true,
+    getOptionLabel: function getOptionLabel(fiche) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, fiche.slug, " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("small", null, fiche.id));
+    },
+    // Declares that options should be matched by their name
+    getOptionKeywords: function getOptionKeywords(fiche) {
+      return [fiche.slug, fiche.id];
+    },
+    // completions should be removed, but then spawn setPost
+    getOptionCompletion: function getOptionCompletion(fiche) {
+      return {
+        action: 'replace',
+        value: updateAttributesId(fiche.id)
+      };
+    }
+  }; // Our filter function
+
+  function appendBottinCompleter(completers, blockName) {
+    return blockName === 'acmarche-block/bottin' ? [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(completers), [bottinCompleter]) : completers;
+  }
+
+  Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_7__["addFilter"])('editor.Autocomplete.completers', 'acbottin/autocompleters-bottin', appendBottinCompleter);
+  var ShowFull = attributes.ShowFull;
+
+  var updateAttributesId = function updateAttributesId(newContent) {
+    var blockSelected = wp.data.select('core/block-editor').getSelectedBlock();
+    console.log(blockSelected); // blockSelected.attributes.id = newContent.toString(); //not refresh block
+
+    setAttributes({
+      id: newContent.toString()
+    }); //refresh block, bug with several times the same block
+  };
+
+  var blockContent = 'Indiquez le nom de la fiche';
+  console.log('ici');
+
+  if (parseInt(attributes.id) > 0) {
+    blockContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      block: "acmarche-block/bottin",
+      attributes: attributes
+    });
+  }
+
+  var FullFicheToggleControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_6__["withState"])({
+    isFullDisplay: ShowFull
+  })(function (_ref2) {
+    var isFullDisplay = _ref2.isFullDisplay,
+        setState = _ref2.setState;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["ToggleControl"], {
+      label: "Afficher la fiche compl\xE8te",
+      help: isFullDisplay ? 'Has fixed background.' : 'No fixed background.',
+      checked: isFullDisplay,
+      onChange: function onChange(value) {
+        console.log(value);
+        setAttributes({
+          showFull: value
+        });
+        setState({
+          isFullDisplay: value
+        });
+      }
+    });
+  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["InspectorControls"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
+    title: 'Paramètres de la fiche'
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(FullFicheToggleControl, null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_5__["RichText"], {
+    tagName: "p",
+    placeholder: "Modifier",
+    withoutInteractiveFormatting: true,
+    onChange: function onChange(value) {},
+    "aria-autocomplete": "list"
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Disabled"], null, blockContent));
+}
 
 /***/ }),
 

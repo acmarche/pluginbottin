@@ -2,6 +2,8 @@
 
 namespace AcMarche\Bottin\Block;
 
+use AcMarche\Bottin\BottinRender;
+
 class BottinBlock {
 
 	public function __construct() {

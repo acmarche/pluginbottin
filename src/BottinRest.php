@@ -2,7 +2,6 @@
 
 namespace AcMarche\Bottin;
 
-
 class BottinRest {
 
 	public function __construct() {
@@ -22,7 +21,7 @@ class BottinRest {
 				                     ),
 			                     ),
 			                     // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
-			                     'callback' => [ 'AcMarche\Bottin\BottinRest', 'restResponse' ],
+			                     'callback' => [ $this, 'restResponse' ],
 		                     ) );
 	}
 
