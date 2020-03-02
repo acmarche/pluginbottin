@@ -12,15 +12,14 @@
  * @package         Bottin
  */
 
+require_once( __DIR__ . '/../../../vendor/autoload.php' );
+
 use AcMarche\Bottin\BottinElastic;
 use AcMarche\Bottin\BottinRender;
 
-require_once( __DIR__ . '/../../../vendor/autoload.php' );
-
-function bottin_block_assets() {
+function register_block_bottin() {
 	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/block.asset.php' );
-
-	// phpcs:ignore
+	
 	// Register block styles for both frontend + backend.
 	wp_register_style(
 		'bottin-block-style-css', // Handle.
@@ -63,17 +62,16 @@ function bottin_render_callback( $attributes ) {
 	$id       = (int) $attributes['id'];
 	$showFull = (bool) $attributes['showFull'];
 	if ( ! $id ) {
-		return '';//'Indiquer dans les paramètres du bloc le id';
+		return '';
 	}
 
 	$render        = new BottinRender();
-	$block_content = $render->renderFiche( $id, $showFull );
+	$block_content = $render->renderFiche( $id, $showFull );//return html
 
 	return $block_content;
 }
 
-// Hook: Block assets.
-add_action( 'init', 'bottin_block_assets' );
+add_action( 'init', 'register_block_bottin' );
 /**
  * This is our callback function that embeds our phrase in a WP_REST_Response
  *
@@ -81,7 +79,7 @@ add_action( 'init', 'bottin_block_assets' );
  *
  * @return mixed|WP_REST_Response
  */
-function rest_bottin_route( $request ) {
+function rest_response_bottin( $request ) {
 	$search = null;
 	if ( isset( $request['search'] ) ) {
 		$search = $request['search'];
@@ -121,7 +119,7 @@ function register_rest_route_bottin() {
 			                     ),
 		                     ),
 		                     // Here we register our callback. The callback is fired when this endpoint is matched by the WP_REST_Server class.
-		                     'callback' => 'rest_bottin_route',
+		                     'callback' => 'rest_response_bottin',
 	                     ) );
 }
 

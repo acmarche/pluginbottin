@@ -194,7 +194,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //https://developer.wordpress.org/block-editor/developers/block-api/block-registration/
 
 Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acmarche-block/bottin', {
   title: 'Bottin',
@@ -257,7 +256,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
 
       setAttributes({
         id: newContent.toString()
-      }); //refresh block
+      }); //refresh block, bug with several times the same block
     };
 
     var blockContent = 'Indiquez le nom de la fiche';
