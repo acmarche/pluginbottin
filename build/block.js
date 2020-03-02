@@ -252,9 +252,12 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     var ShowFull = attributes.ShowFull;
 
     var updateAttributesId = function updateAttributesId(newContent) {
-      var block = wp.data.select('core/block-editor').getSelectedBlock();
-      console.log(block);
-      block.attributes.id = newContent.toString();
+      var blockSelected = wp.data.select('core/block-editor').getSelectedBlock();
+      console.log(blockSelected); // blockSelected.attributes.id = newContent.toString(); //not refresh block
+
+      setAttributes({
+        id: newContent.toString()
+      }); //refresh block
     };
 
     var blockContent = 'Indiquez le nom de la fiche';
@@ -268,21 +271,21 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__["registerBlockType"])('acm
     }
 
     var FullFicheToggleControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_7__["withState"])({
-      hasFixedBackground: ShowFull
+      isFullDisplay: ShowFull
     })(function (_ref2) {
-      var hasFixedBackground = _ref2.hasFixedBackground,
+      var isFullDisplay = _ref2.isFullDisplay,
           setState = _ref2.setState;
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["ToggleControl"], {
         label: "Afficher la fiche compl\xE8te",
-        help: hasFixedBackground ? 'Has fixed background.' : 'No fixed background.',
-        checked: hasFixedBackground,
+        help: isFullDisplay ? 'Has fixed background.' : 'No fixed background.',
+        checked: isFullDisplay,
         onChange: function onChange(value) {
           console.log(value);
           setAttributes({
             showFull: value
           });
           setState({
-            hasFixedBackground: value
+            isFullDisplay: value
           });
         }
       });

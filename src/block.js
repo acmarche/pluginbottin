@@ -67,9 +67,10 @@ registerBlockType('acmarche-block/bottin', {
         const {ShowFull} = attributes;
 
         const updateAttributesId = (newContent) => {
-            const block = wp.data.select('core/block-editor').getSelectedBlock();
-            console.log(block);
-            block.attributes.id = newContent.toString();
+            const blockSelected = wp.data.select('core/block-editor').getSelectedBlock();
+            console.log(blockSelected);
+            // blockSelected.attributes.id = newContent.toString(); //not refresh block
+            setAttributes({id: newContent.toString()});//refresh block
         };
 
         let blockContent = 'Indiquez le nom de la fiche';
@@ -82,16 +83,16 @@ registerBlockType('acmarche-block/bottin', {
         }
 
         const FullFicheToggleControl = withState({
-            hasFixedBackground: ShowFull,
-        })(({hasFixedBackground, setState}) => (
+            isFullDisplay: ShowFull,
+        })(({isFullDisplay, setState}) => (
             <ToggleControl
                 label="Afficher la fiche complète"
-                help={hasFixedBackground ? 'Has fixed background.' : 'No fixed background.'}
-                checked={hasFixedBackground}
+                help={isFullDisplay ? 'Has fixed background.' : 'No fixed background.'}
+                checked={isFullDisplay}
                 onChange={value => {
                     console.log(value);
                     setAttributes({showFull: value});
-                    setState({hasFixedBackground: value})
+                    setState({isFullDisplay: value});
                 }}
             />
         ));
