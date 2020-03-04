@@ -1,5 +1,6 @@
 import {registerBlockType} from '@wordpress/blocks';
-import edit from './edit';
+//import edit from './edit';
+import editComponent from './editComponent';
 
 registerBlockType('acmarche-block/bottin', {
     title: 'Bottin',
@@ -16,5 +17,5 @@ registerBlockType('acmarche-block/bottin', {
             id: '12345',
         },
     },
-    edit
+    edit: editComponent
 });

@@ -6,7 +6,7 @@ import {InspectorControls, PlainText, RichText} from '@wordpress/block-editor';
 import {withState} from '@wordpress/compose';
 import {addFilter} from '@wordpress/hooks';
 
-export default function ArchivesEdit({className, setAttributes, attributes}) {
+export default function BottinEdit({className, setAttributes, attributes}) {
 
     const bottinCompleter = {
         name: 'acbottin',
@@ -52,7 +52,7 @@ export default function ArchivesEdit({className, setAttributes, attributes}) {
     const updateAttributesId = (newContent) => {
         const blockSelected = wp.data.select('core/block-editor').getSelectedBlock();
         console.log(blockSelected);
-        // blockSelected.attributes.id = newContent.toString(); //not refresh block
+        blockSelected.attributes.id = newContent.toString(); //not refresh block
         setAttributes({id: newContent.toString()});//refresh block, bug with several times the same block
     };
 
